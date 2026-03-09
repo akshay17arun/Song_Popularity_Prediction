@@ -43,7 +43,7 @@ GENRES = {
     197: "Latin_Music",
 }
 
-FIELDS = ["id", "title", "artist", "album", "duration_sec", "rank", "explicit", "preview_url"]
+FIELDS = ["id", "title", "artist", "album", "duration_sec", "rank", "explicit"]
 TARGET  = 500
 LIMIT   = 100  # max per request
 
@@ -63,8 +63,7 @@ def track_to_row(t):
         "album":        t["album"]["title"],
         "duration_sec": t.get("duration"),
         "rank":         t.get("rank"),
-        "explicit":     t.get("explicit_lyrics"),
-        "preview_url":  t.get("preview"),
+        "explicit":     t.get("explicit_lyrics")
     }
 
 for genre_id, genre_name in GENRES.items():
