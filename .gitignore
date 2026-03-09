@@ -1,5 +1,6 @@
 #Folders
 test_scripts
+data/genre_data
 
 #File types
 *.mp3
