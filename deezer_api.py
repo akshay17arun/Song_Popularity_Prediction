@@ -1,3 +1,11 @@
+"""
+Access Deezer's public API to fetch top tracks from various genres. 
+
+Saves each genre's tracks in a separate CSV file under the "data" directory, 
+and also combines all tracks into a single CSV file for easier analysis.
+
+"""
+
 import requests
 import csv
 import time
