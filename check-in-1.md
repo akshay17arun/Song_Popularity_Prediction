@@ -41,17 +41,25 @@ Each genre had 300 songs downloaded from the API, with the exception of Indian m
 
 ![Duration Histogram](eda/duration_histogram.png)
 
+Songs are on average around 215-230 seconds, with a slight right skew in the distribution.
+
 ### Deezer Rank
 
 ![Rank Histogram](eda/rank_histogram.png)
 
+The scale of Deezer's ranking system appears to range from 0-1,000,000, with many being on the lower end. Despite this, the median and mean are very similar, employing not a lot of skew in teh data.
+
 ![Rank Boxplot](eda/rank_boxplot.png)
+
+Rather intuitively, genres such as Pop and Latin Music have very high rankings on average whereas music like jazz and blues have low ratings. Notably, Rap/Hip Hop seems to have the highest spread of both popular and unpopular tracks. 
 
 ### Song Explicitness
 
 ![Explicit Pie Chart](eda/explicit_pie_chart.png)
 
 ![Explicit Stacked Bar Chart](eda/explicitness_proportion.png)
+
+Around 10% of songs are explicit. Unsurprisingly, a majority of these explicit songs are genres such as Reggaeton and Rap/Hip-Hop. Surprisingly, however, there is 1 song in the "Kids" genre that is explicit, being "My Name Is" by Eminem.
 
 ## Evaluation Plan
 
