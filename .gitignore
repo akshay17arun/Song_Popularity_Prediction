@@ -5,3 +5,4 @@ data/genre_data
 #File types
 *.mp3
 *.wav
+*.npz

@@ -47,7 +47,7 @@ Songs are on average around 215-230 seconds, with a slight right skew in the dis
 
 ![Rank Histogram](eda/rank_histogram.png)
 
-The scale of Deezer's ranking system appears to range from 0-1,000,000, with many being on the lower end. Despite this, the median and mean are very similar, employing not a lot of skew in teh data.
+The scale of Deezer's ranking system appears to range from 0-1,000,000, with many being on the lower end. Despite this, the median and mean are very similar, employing not a lot of skew in the data.
 
 ![Rank Boxplot](eda/rank_boxplot.png)
 
