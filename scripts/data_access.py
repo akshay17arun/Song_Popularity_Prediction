@@ -43,7 +43,10 @@ GENRES = {
     197: "Latin_Music",
 }
 
-FIELDS = ["id", "title", "artist", "album", "duration_sec", "rank", "explicit"]
+FIELDS = [
+    "id", "title", "artist", "album", "duration_sec", "rank", "explicit",
+    "isrc", "track_position", "bpm", "gain", "contributors",
+]
 TARGET  = 500
 LIMIT   = 100  # max per request
 
@@ -55,19 +58,39 @@ def fetch_tracks(genre_id, index, limit):
     data = r.json()
     return data.get("data", [])
 
+def fetch_track_detail(track_id):
+    url = f"https://api.deezer.com/track/{track_id}"
+    r = requests.get(url)
+    if r.status_code != 200:
+        return {}
+    return r.json()
+
 def track_to_row(t):
+    detail = fetch_track_detail(t["id"])
+    time.sleep(0.1)
+
+    contributors = detail.get("contributors", [])
+    contributors_str = "; ".join(
+        f"{c['name']} ({c.get('role', 'Unknown')})" for c in contributors
+    )
+
     return {
-        "id":           t.get("id"),
-        "title":        t.get("title"),
-        "artist":       t["artist"]["name"],
-        "album":        t["album"]["title"],
-        "duration_sec": t.get("duration"),
-        "rank":         t.get("rank"),
-        "explicit":     t.get("explicit_lyrics")
+        "id":             t.get("id"),
+        "title":          t.get("title"),
+        "artist":         t["artist"]["name"],
+        "album":          t["album"]["title"],
+        "duration_sec":   t.get("duration"),
+        "rank":           t.get("rank"),
+        "explicit":       t.get("explicit_lyrics"),
+        "isrc":           detail.get("isrc"),
+        "track_position": detail.get("track_position"),
+        "bpm":            detail.get("bpm"),
+        "gain":           detail.get("gain"),
+        "contributors":   contributors_str,
     }
 
 for genre_id, genre_name in GENRES.items():
-    filepath = f"data/{genre_name}.csv"
+    filepath = f"data/genre_data/{genre_name}.csv"
     tracks = []
     seen_ids = set()
     index = 0
@@ -103,7 +126,7 @@ with open(combined_path, "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=["genre"] + FIELDS)
     writer.writeheader()
     for genre_id, genre_name in GENRES.items():
-        filepath = f"data/{genre_name}.csv"
+        filepath = f"data/genre_data/{genre_name}.csv"
         with open(filepath, newline="", encoding="utf-8") as gf:
             reader = csv.DictReader(gf)
             for row in reader:
